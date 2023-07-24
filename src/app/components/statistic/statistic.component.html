@@ -1,0 +1,53 @@
+<div class="container">
+    <div class="row">
+        <div class="col-10 offset-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h2>{{currentEventName}}</h2>
+                    <p>({{(from | date: 'dd/MM/yyyy')}} - {{to | date: 'dd/MM/yyyy'}})</p>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="text-align: left;">#</th>
+                                <th scope="col" style="text-align: left;">Runner</th>
+                                <th scope="col" style="text-align: left;">Km</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of athletes; let i = index">
+                                <td [ngClass]="{'bg-info':item.userName==currentUserName}" scope="row"
+                                    style="text-align: left;">{{i+1}}</td>
+                                <td [ngClass]="{'bg-info':item.userName==currentUserName}">{{item.fullName}}</td>
+                                <td [ngClass]="{'bg-info':item.userName==currentUserName}">{{(item.distance/1000) |
+                                    number:'0.1-2':'en'}}</td>
+                            </tr>
+                            <tr *ngIf="isLoading">
+                                <td colspan="3" class="text-center">
+                                    <app-loading class="mr-1" [miniMode]="true"></app-loading>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center text-danger fst-italic" colspan="3">
+                                    <label style="cursor: pointer; text-decoration: underline;" class="text-primary"
+                                        (click)="sync()">
+                                        <app-loading class="mr-1" [miniMode]="true" *ngIf="isSyncLoading"></app-loading>
+                                        Cập nhật kết quả từ Strava
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center text-danger fst-italic" colspan="3">Nếu bạn chưa có tên trong
+                                    danh sách,
+                                    vui lòng vào
+                                    trang "Sự
+                                    Kiện" và nhấn chọn "Tham gia".</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

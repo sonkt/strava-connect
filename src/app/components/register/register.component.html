@@ -1,0 +1,42 @@
+<div class="container">
+    <div class="row">
+        <div class="col-10 offset-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+            <div class="card">
+                <div class="card-header text-center">
+                    Đăng ký tài khoản
+                </div>
+                <div class="card-body">
+                    <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="username">Tài khoản</label>
+                            <input type="email" id="username" name="username" class="form-control" ngModel required />
+                        </div>
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="pasword">Mật khẩu</label>
+                            <input type="password" id="password" name="password" class="form-control" ngModel
+                                [passwordValidate]="{level:2, rePasswordControl:authForm.controls['rePassword']}"
+                                required />
+                        </div>
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="repassword">Nhập lại mật khẩu</label>
+                            <input type="password" id="repassword" name="repassword" class="form-control" ngModel
+                                [passwordValidate]="{compareValue:authForm.value.password}" required />
+                        </div>
+                        <div class="input-row text-center text-danger pb-0" *ngIf="errorMessage">
+                            {{ errorMessage}}
+                        </div>
+                        <div class="input-row text-center text-success pb-0" *ngIf="successMessage">
+                            {{ successMessage}}
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block mb-4"
+                            [disabled]="authForm.invalid && isLoading"><app-loading class="mr-1" [miniMode]="true"
+                                *ngIf="isLoading"></app-loading> Đăng ký</button>
+                        <div class="text-center">
+                            <p>Bạn đã có tài khoản? <a href="/dang-nhap">Đăng nhập</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

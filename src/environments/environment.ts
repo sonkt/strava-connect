@@ -3,7 +3,28 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  api: {
+    basePort: 33333,
+    baseUrl: 'http://localhost',
+    authentication: {
+      login: 'api/v1/authentication/login',
+      register: 'api/v1/authentication/register',
+    },
+    users: {
+      all: 'api/v1/users/all',
+      active: 'api/v1/users/active',
+      profile: 'api/v1/users/profile',
+      sync: 'api/v1/users/sync'
+    },
+    event: {
+      current: 'api/v1/events/current',
+      list: 'api/v1/events/list',
+      register: 'api/v1/events/reg-event'
+    }
+  },
+  redirectLink: 'http://localhost:4200',
+  clubId: '1148881'
 };
 
 /*

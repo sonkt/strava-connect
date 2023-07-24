@@ -1,0 +1,66 @@
+:root {
+    --primary: #0959a0;
+    --secondary: #0076b9;
+    --success: #19a539;
+    --info: #17a2b8;
+    --warning: #ffbe01;
+    --danger: #cb0000;
+    --text-primary: white;
+    --text-secondary: black;
+    --highlight: #2d9cdb;
+    --focus: #d1efff;
+    --blue: #0959a0;
+    --black: black;
+}
+
+//Online config-form
+$online_color_ba_default: #0959a0;
+$online_ba_default: #0959a0;
+$config_form_text: white;
+$config_form_bg-focus: white;
+$config_form_bg-config-panel: white;
+$config_form_border_config-panel: #eee;
+$config_form_box_shadow_config-pane: rgba(78, 78, 78, 0.5);
+$config_form_help_aclose: #f14137;
+$config_form_bg_checkbox: #b3d7ff;
+$config_form_border_label_checkbox: #80bdff;
+$config_form_box_shadow_label_checkbox: rgba(0, 123, 255, 0.25);
+$config_form_list_config_caret: black;
+$config_form_list_config_bg_active_child: #8c8c8c;
+$config_form_snippets_line: rgba(0, 0, 0, 0.1);
+$config_form_i_help: #00abe1;
+$config_form_helper_border_img: #2f80ed;
+$config_form_config_multiselect: #1580ff;
+$config_form_autocomplete_input_focus: #495057;
+$config_form_autocomplete_input_border: #80bdff;
+$config_form_autocomplete_input_shadow: rgba(0, 123, 255, 0.25);
+
+//custom-range input
+$custom_range_bg_input: #ddd;
+$custom_range_bg_input_to: #b2b2b2;
+$custom_range_bg_input_from: #37adbf;
+$custom_range_runnable_track: #444;
+$custom_range_range_subcontainer_h4: #fff;
+
+//Online Leaflet-map
+$leaflet_map_cluster_group_bg: rgba(255, 43, 43, 0.8);
+$leaflet_map_cluster_group_border: rgb(234 31 31 / 80%);
+$leaflet_map_cluster_group_small_bg: rgba(193, 174, 0, 0.8);
+$leaflet_map_cluster_group_small_border: rgb(150 136 3 / 80%);
+$leaflet_map_cluster_group: #fff;
+$leaflet_map_carClass_label: #fff;
+$leaflet_map_carClass_label_bg: steelblue;
+$leaflet_map_carClassSelected_label_bg: Green;
+$leaflet_map_landmarkName_bg: #90d7ff;
+$leaflet_map_landmarkName: black;
+$leaflet_map_popup_close: #fff;
+$leaflet_map_popup_close_bg: red;
+
+//Online vehicle-detail
+$vehicle_detail_default_border: #888383;
+$vehicle_detail_panel_heading: #535353;
+$vehicle_detail_vehicle_plate: red;
+
+$radio-checked-bg: #1ba906;
+$radio-checked-br: #f0f3f0;
+$highlight-color: #2d9cdb;

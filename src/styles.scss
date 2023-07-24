@@ -1,1 +1,332 @@
 /* You can add global styles to this file, and also import other style files */
+//Variables ------------------------------------
+@import "style/variables.scss";
+//-----------------------------------------------
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,700");
+@import url("https://fonts.googleapis.com/css?family=Inconsolata:400,700");
+@import "ngx-toastr/toastr.css";
+//Default Control CSS
+
+html {
+    height: 100%;
+
+    body {
+        height: 100%;
+        margin: 0;
+        font-family: Roboto, "Helvetica Neue", sans-serif;
+        font-size: $font-size;
+    }
+}
+
+.dropdown-menu,
+.dropdown-item {
+    font-size: $font-size !important;
+}
+
+.btn {
+    font-size: $font-size !important;
+    cursor: pointer;
+
+    &:disabled {
+        opacity: 0.8;
+        background-color: #57606f;
+        border-color: #57606f;
+        color: white;
+
+        &:hover {
+            cursor: default;
+            background-color: #57606f;
+            border-color: #57606f;
+            color: white;
+        }
+    }
+}
+
+.dropdown-toggle {
+    &:disabled {
+        opacity: 1;
+        background-color: #e9ecef;
+        border-color: #e9ecef;
+        color: black;
+    }
+}
+
+.btn-sm {
+    padding: 0.15rem 0.5rem;
+    min-height: $input-height;
+}
+
+.btn-primary:hover {
+    background-color: var(--highlight);
+    border-color: var(--highlight);
+}
+
+.btn-link {
+    &:disabled {
+        background-color: unset;
+        border-color: unset;
+        border: none;
+        color: #57606f;
+    }
+}
+
+.box-shadow,
+.dropdown-menu.show {
+    -webkit-box-shadow: 1px 5px 5px 0px $box-shadow-color;
+    -moz-box-shadow: 1px 5px 5px 0px $box-shadow-color;
+    box-shadow: 1px 5px 5px 0px $box-shadow-color;
+}
+
+.box-shadow-all {
+    -webkit-box-shadow: 0px 1px 5px 1px $box-shadow-color;
+    -moz-box-shadow: 0px 1px 5px 1px $box-shadow-color;
+    box-shadow: 0px 1px 5px 1px $box-shadow-color;
+}
+
+.dropdown-menu {
+    padding: 0;
+}
+
+.dropdown-item {
+    padding: 0.5rem;
+}
+
+.navbar {
+    padding: 5px 10px;
+}
+
+a:hover {
+    cursor: pointer;
+}
+
+.row {
+    margin: 0;
+
+    >[class*="col"] {
+        padding: 10px;
+    }
+}
+
+.form-control {
+    font-size: $font-size;
+}
+
+@media print {
+    @page {
+        size: A4 landscape;
+        margin-top: 0;
+    }
+
+    #main-header,
+    #header-toolbar,
+    #main-footer {
+        visibility: hidden !important;
+    }
+
+    #mapid .leaflet-control-container .leaflet-top.leaflet-right {
+        visibility: hidden !important;
+    }
+}
+
+#left-panel-container {
+    position: absolute;
+}
+
+#mapid {
+    height: 100%;
+    padding: 0;
+}
+
+#content-container {
+    overflow: auto;
+
+    #content-right {
+        padding: 10px;
+        overflow: auto;
+
+        .content-right-header {
+            font-size: larger;
+            text-transform: uppercase;
+            font-weight: bold;
+            padding: 10px;
+        }
+
+        .content-right-footer {
+            padding: 10px;
+        }
+    }
+}
+
+.border {
+    border: 1px solid $border-color !important;
+}
+
+.rounded {
+    border-radius: $border-radius !important;
+}
+
+.scrollbar-thin {
+    scrollbar-width: thin;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        //background-color: $selectedColor;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        background-color: #cccccc;
+
+        &:hover,
+        &:active {
+            cursor: pointer;
+            background: #a4a4a4;
+        }
+    }
+}
+
+$arrow-width: 4px;
+$arrow-color: #6b6b6b;
+
+.arrow-up {
+    width: 0;
+    height: 0;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 5px 3px 5px;
+    border-left: $arrow-width solid transparent;
+    border-right: $arrow-width solid transparent;
+    border-bottom: $arrow-width solid $arrow-color !important;
+}
+
+.arrow-down {
+    width: 0;
+    height: 0;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 5px 3px 5px;
+    border-left: $arrow-width solid transparent;
+    border-right: $arrow-width solid transparent;
+    border-bottom: none !important;
+    border-top: $arrow-width solid $arrow-color;
+}
+
+.arrow-right {
+    width: 0;
+    height: 0;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 5px 3px 5px;
+    border-top: $arrow-width solid transparent;
+    border-bottom: $arrow-width solid transparent;
+    border-left: $arrow-width solid $arrow-color;
+}
+
+.arrow-left {
+    width: 0;
+    height: 0;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 5px 3px 5px;
+    border-top: $arrow-width solid transparent;
+    border-bottom: $arrow-width solid transparent;
+    border-right: $arrow-width solid $arrow-color;
+}
+
+tree-viewport,
+.k-grid-content,
+.ng-dropdown-panel-items,
+.popup-body {
+    @extend .scrollbar-thin;
+}
+
+.popup {
+    @extend .box-shadow;
+}
+
+.custom-control-label {
+
+    &::before,
+    &::after {
+        top: 0;
+    }
+}
+
+.card {
+
+    .card-header,
+    .card-body {
+        padding: 10px;
+    }
+}
+
+.accordion .card {
+    overflow: unset;
+}
+
+input.form-control {
+    height: $input-height;
+    padding: $input-padding-top $input-padding-left;
+    border-radius: $border-radius;
+}
+
+textarea.form-control {
+    border-radius: $border-radius;
+}
+
+.ng-valid[required],
+.ng-valid.required {
+    border-left: 3px solid #42a948;
+}
+
+.ng-invalid:not(form) {
+    border-left: 3px solid var(--danger) !important;
+}
+
+.custom-file-input~.custom-file-label::after {
+    content: "Duyệt...";
+}
+
+.input-group>.custom-file:not(:last-child) .custom-file-label,
+.input-group>.custom-file:not(:first-child) .custom-file-label {
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+}
+
+input:checked {
+    accent-color: #0959A0 !important;
+}
+
+.checkbox-group {
+    display: flex;
+
+    input:checked {
+        accent-color: red !important;
+    }
+
+    .checkbox-label {
+        color: #000;
+        margin-bottom: 0;
+        margin-left: 2px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+}
+
+// Ẩn mũi tên up down trong input với type="number"
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}

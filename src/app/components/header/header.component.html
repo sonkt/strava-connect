@@ -1,0 +1,37 @@
+<nav class="navbar navbar-expand bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand  text-white" href="/">
+            <img src="https://bagps.vn/public/media/seo_2022/logo_ba-02.png" width="60" />
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link  text-white" href="/thong-ke" *ngIf="loggedIn">Thống kê</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  text-white" href="/su-kien" *ngIf="loggedIn">Sự kiện</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  text-white" href="/dang-ky" *ngIf="!loggedIn">Đăng ký</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  text-white" href="/dang-nhap" *ngIf="!loggedIn">Đăng nhập</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  text-white" href="{{activeLink}}" *ngIf="!actived && loggedIn">Kích hoạt</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/" class="nav-link  text-white">Tài khoản</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  text-white" href="#" *ngIf="loggedIn" (click)="logOut()">
+                        (thoát)</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

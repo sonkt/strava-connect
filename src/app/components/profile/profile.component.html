@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="row">
+        <div class="col-10 offset-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+            <div class="card">
+                <div class="card-header text-center">
+                    Thông tin tài khoản
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item text-center" *ngIf="isLoading"><app-loading class="mr-1"
+                                [miniMode]="true"></app-loading></li>
+                        <li class="list-group-item">Tài khoản: <b>{{user?.userName}}</b></li>
+                        <li class="list-group-item">Họ tên: <b>{{user?.fullName}}</b></li>
+                        <li class="list-group-item">Email: <b>{{user?.email}}</b></li>
+                        <li class="list-group-item" *ngIf="user?.userStatus==1">Trạng thái: <b>Chưa xác thực</b> (<a
+                                href="{{strGetCodeUrl}}">Xác
+                                thực</a>)</li>
+                        <li class="list-group-item" *ngIf="user?.userStatus==2">Trạng thái: <b>Đã xác thực</b></li>
+                        <li class="list-group-item" *ngIf="user?.userStatus==3">Trạng thái: <b>Hết hạn</b></li>
+                        <li class="list-group-item">Thành tích tuần hiện tại: <b> {{(user?.distance??0)/1000 | number}}
+                                km</b>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
