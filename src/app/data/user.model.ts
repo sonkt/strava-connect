@@ -43,6 +43,8 @@ export class UserProfile {
     status!: number;
     userStatus!: number;
     events!: string[];
+    progress!: number;
+    target!: number;
 
     constructor() { }
 
@@ -58,6 +60,8 @@ export class UserProfile {
         this.status = data.status;
         this.userStatus = data.user.userStatus;
         this.events = data.user.eventIds;
+        this.progress = data.usre.progress;
+        this.target = data.usre.target;
         return this;
     }
 }

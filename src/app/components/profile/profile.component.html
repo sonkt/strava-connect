@@ -9,16 +9,24 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item text-center" *ngIf="isLoading"><app-loading class="mr-1"
                                 [miniMode]="true"></app-loading></li>
-                        <li class="list-group-item">Tài khoản: <b>{{user?.userName}}</b></li>
-                        <li class="list-group-item">Họ tên: <b>{{user?.fullName}}</b></li>
-                        <li class="list-group-item">Email: <b>{{user?.email}}</b></li>
+                        <li class="list-group-item">Tài khoản: <b>{{user.userName}}</b></li>
+                        <li class="list-group-item">Họ tên: <b>{{user.fullName}}</b></li>
+                        <li class="list-group-item">Email: <b>{{user.email}}</b></li>
                         <li class="list-group-item" *ngIf="user?.userStatus==1">Trạng thái: <b>Chưa xác thực</b> (<a
                                 href="{{strGetCodeUrl}}">Xác
                                 thực</a>)</li>
                         <li class="list-group-item" *ngIf="user?.userStatus==2">Trạng thái: <b>Đã xác thực</b></li>
                         <li class="list-group-item" *ngIf="user?.userStatus==3">Trạng thái: <b>Hết hạn</b></li>
-                        <li class="list-group-item">Thành tích tuần hiện tại: <b> {{(user?.distance??0)/1000 | number}}
-                                km</b>
+                        <li class="list-group-item">Thành tích tuần hiện tại: <b> {{(user.distance??0)/1000 |
+                                number:'1.2-2'}} / {{user.target}} (km)</b>
+                            <div class="progress" role="progressbar"
+                                [attr.aria-valuenow]="user.progress>100?100:user.progress" aria-valuemin="0"
+                                aria-valuemax="100">
+                                <div class="progress-bar"
+                                    [ngClass]="user.progress<50?'bg-danger':user.progress<80?'bg-warning':user.progress<100?'bg-primary':'bg-success'"
+                                    [ngStyle]="{'width': user.progress +'%'}">
+                                </div>
+                            </div>
                         </li>
                     </ul>
                 </div>

@@ -12,6 +12,14 @@
                             <input type="email" id="username" name="username" class="form-control" ngModel required />
                         </div>
                         <div class="form-outline mb-4">
+                            <label class="form-label" for="baCode">Mã nhân viên</label>
+                            <input type="email" id="baCode" name="baCode" class="form-control" ngModel required />
+                        </div>
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="fullName">Họ tên</label>
+                            <input type="email" id="fullName" name="fullName" class="form-control" ngModel required />
+                        </div>
+                        <div class="form-outline mb-4">
                             <label class="form-label" for="pasword">Mật khẩu</label>
                             <input type="password" id="password" name="password" class="form-control" ngModel
                                 [passwordValidate]="{level:2, rePasswordControl:authForm.controls['rePassword']}"

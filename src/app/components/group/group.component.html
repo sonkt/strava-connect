@@ -1,0 +1,58 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-sm-10 offset-sm-1 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h2>Danh sách các nhóm</h2>
+                    <p></p>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="text-align: left;">#</th>
+                                <th scope="col" style="text-align: left;">Tên</th>
+                                <th scope="col" style="text-align: left;">Mục tiêu</th>
+                                <th scope="col" style="text-align: left;">Hình thức</th>
+                                <th scope="col" style="text-align: left;">Mô tả</th>
+                                <th scope="col" style="text-align: left;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of listGroups; let i = index">
+                                <td scope="row" style="text-align: left;">{{i+1}}
+                                </td>
+                                <td>
+                                    <a href="/thanh-tich-nhom/?gid={{item.id}}" *ngIf="item.registered">
+                                        {{item.name}}
+                                    </a>
+                                    <span *ngIf="!item.registered">
+                                        {{item.name}}
+                                    </span>
+                                </td>
+                                <td>{{item.target}} km</td>
+                                <td *ngIf="item.targetType==1">Theo tuần</td>
+                                <td *ngIf="item.targetType==2">Theo tháng</td>
+                                <td *ngIf="item.targetType==4">Theo quý</td>
+                                <td *ngIf="item.targetType==4">Theo năm</td>
+                                <td>{{item.description}}</td>
+                                <td>
+                                    <label style="cursor: pointer; text-decoration: underline;" class="text-primary"
+                                        (click)="register(item.id)" *ngIf="!item.registered && !item.isLockRegistered">
+                                        <app-loading class="mr-1" [miniMode]="true" *ngIf="isRegLoading"></app-loading>
+                                        Tham gia
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr *ngIf="isLoading">
+                                <td colspan="6" class="text-center">
+                                    <app-loading class="mr-1" [miniMode]="true"></app-loading>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

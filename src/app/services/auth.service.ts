@@ -54,7 +54,7 @@ export class AuthService {
   }
 
 
-  register(email: string, password: string, repassword: string) {
+  register(email: string, password: string, repassword: string, baCode: string, fullName: string) {
     return this.http
       .post<APIResponse>(
         environment.api.baseUrl +
@@ -65,7 +65,9 @@ export class AuthService {
         {
           UserName: email,
           Password: password,
-          RePassword: repassword
+          RePassword: repassword,
+          BaCode: baCode,
+          FullName: fullName
         }
       )
       .pipe(

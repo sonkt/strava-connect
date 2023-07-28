@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
 export class ProfileComponent implements OnInit {
 
   constructor(private baseSv: BaseService, private userSv: AuthService) { }
-  user: UserProfile | undefined;
+  user: UserProfile = new UserProfile();
   isLoading = false;
   isSyncLoading = false;
   strGetCodeUrl = `https://www.strava.com/oauth/authorize?client_id=110878&response_type=code&redirect_uri=${environment.redirectLink}/exchange_token&approval_prompt=force&scope=read_all,profile:read_all,activity:read_all`

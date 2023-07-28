@@ -1,0 +1,85 @@
+<div class="container">
+    <div class="row">
+        <div class="col-10 offset-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h2>{{groupName}}</h2>
+                    <p style="margin-bottom: 0px;">{{groupDesc}}</p>
+                    <p style="margin-bottom: 0px;">{{(from * 1000)| date:'dd/MM/yyyy'}} - {{(to * 1000)|
+                        date:'dd/MM/yyyy'}}</p>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="text-align: left;">#</th>
+                                <th scope="col" style="text-align: left;">Runner</th>
+                                <th scope="col" style="text-align: left;">Km</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-template ngFor let-item let-i="index" [ngForOf]="activities">
+                                <tr>
+                                    <td [ngClass]="{'fw-bolder':item.userName==currentUserName}" scope="row"
+                                        style="text-align: center; border-bottom: none; width: 20px;">
+                                        <img *ngIf="i==0 && item.progress>= 100" src="../../../assets/icons/first.png"
+                                            width="20px">
+                                        <img *ngIf="i==1 && item.progress>= 100" src="../../../assets/icons/second.png"
+                                            width="20px">
+                                        <img *ngIf="i==2 && item.progress>= 100" src="../../../assets/icons/third.png"
+                                            width="20px">
+                                        <span *ngIf="i>=3">{{i+1}}</span>
+                                    </td>
+                                    <td [ngClass]="{'fw-bolder':item.userName==currentUserName}"
+                                        style=" border-bottom: none; padding-left: 0px;">
+                                        {{item.fullName}}
+                                    </td>
+                                    <td [ngClass]="{'fw-bolder':item.userName==currentUserName}"
+                                        style=" border-bottom: none;">
+                                        {{(item.distance/1000) |
+                                        number:'0.1-2':'en'}}
+                                        <span
+                                            [ngClass]="item.progress<50?'text-danger':item.progress<80?'text-warning':item.progress<100?'text-primary':'text-success'"
+                                            [ngStyle]="{'font-size':'10px', 'font-style':'italic'}">({{item.progress}}%)</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" style="padding-top: 0px;">
+                                        <div class="progress" role="progressbar"
+                                            [attr.aria-valuenow]="item.progress>100?100:item.progress" aria-valuemin="0"
+                                            aria-valuemax="100">
+                                            <div class="progress-bar"
+                                                [ngClass]="item.progress<50?'bg-danger':item.progress<80?'bg-warning':item.progress<100?'bg-primary':'bg-success'"
+                                                [ngStyle]="{'width': item.progress +'%'}">
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <tr *ngIf="isLoading">
+                                <td colspan="3" class="text-center">
+                                    <app-loading class="mr-1" [miniMode]="true"></app-loading>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center text-danger fst-italic" colspan="3">
+                                    <label style="cursor: pointer; text-decoration: underline;" class="text-primary"
+                                        (click)="sync()">
+                                        <app-loading class="mr-1" [miniMode]="true" *ngIf="isSyncLoading"></app-loading>
+                                        Cập nhật kết quả từ Strava
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center text-danger fst-italic" colspan="3">Nếu bạn chưa có tên trong
+                                    danh sách,
+                                    vui lòng vào
+                                    trang "Nhóm" và nhấn chọn "Tham gia".</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

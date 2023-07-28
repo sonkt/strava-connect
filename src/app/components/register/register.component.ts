@@ -28,9 +28,11 @@ export class RegisterComponent implements OnInit {
     const username = form.value.username;
     const password = form.value.password;
     const repassword = form.value.repassword;
+    const baCode = form.value.baCode;
+    const fullName = form.value.fullName;
 
     this.subscription.add(
-      await this.authService.register(username, password, repassword).then(
+      await this.authService.register(username, password, repassword, baCode, fullName).then(
         (data) => {
           this.successMessage = 'Đăng ký thành công. Vui lòng click vào link Đăng nhập bên dưới để tiếp tục';
           this.isLoading = false;

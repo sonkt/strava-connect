@@ -5,3 +5,13 @@ curl -X POST https://www.strava.com/oauth/token \
 -F client_secret=26362775a543abb4e9092a81ccdecad2c9e03852 \
 -F code=770b6f97ab2eeae0b548de7ca13946716bca1897 \
 -F grant_type=authorization_code
+
+curl -X POST https://www.strava.com/api/v3/push_subscriptions \
+      -F client_id=110878 \
+      -F client_secret=26362775a543abb4e9092a81ccdecad2c9e03852 \
+      -F callback_url=http://runner.bagps.vn:8100/api/v1/strava-event \
+      -F verify_token=STRAVA
+
+curl -G https://www.strava.com/api/v3/push_subscriptions \
+      -F client_id=110878 \
+      -F client_secret=26362775a543abb4e9092a81ccdecad2c9e03852
