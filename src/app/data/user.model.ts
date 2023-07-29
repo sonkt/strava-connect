@@ -10,7 +10,8 @@ export class UserLogin {
     refreshToken!: string;
     status!: number;
     userStatus!: number;
-    eventIds!: string[];
+    groupIds!: string[];
+    avatar!: string;
 
     constructor() { }
 
@@ -25,7 +26,8 @@ export class UserLogin {
         this.accessToken = data.token;
         this.status = data.status;
         this.userStatus = data.user.userStatus;
-        this.eventIds = data.user.eventIds;
+        this.groupIds = data.user.groupIds;
+        this.avatar = data.user.avatar;
         return this;
     }
 }
@@ -45,10 +47,14 @@ export class UserProfile {
     events!: string[];
     progress!: number;
     target!: number;
+    targetType!: number;
+    avatar!: string;
+    password!: string;
+    repassword!: string;
 
     constructor() { }
 
-    parseLoginData(data: any) {
+    parseData(data: any) {
         this.userId = data.user.userId;
         this.userName = data.user.userName;
         this.email = data.user.email;
@@ -60,8 +66,10 @@ export class UserProfile {
         this.status = data.status;
         this.userStatus = data.user.userStatus;
         this.events = data.user.eventIds;
-        this.progress = data.usre.progress;
-        this.target = data.usre.target;
+        this.progress = data.user.progress;
+        this.target = data.user.target;
+        this.targetType = data.user.targetType;
+        this.avatar = data.user.avatar;
         return this;
     }
 }

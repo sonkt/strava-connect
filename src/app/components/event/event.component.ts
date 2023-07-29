@@ -11,6 +11,7 @@ import { EventService } from 'src/app/services/event.service';
 })
 export class EventComponent implements OnInit {
 
+  toastOptions = { positionClass: 'toast-custom' };
   constructor(private baseSv: BaseService, private eventSv: EventService, private toastSv: ToastrService) { }
   listEvents: { id: string, name: string, from: number, to: number, description: string, status: number, registered: boolean }[] = [];
   isLoading = false;
@@ -20,7 +21,7 @@ export class EventComponent implements OnInit {
     if (!this.baseSv.currentUser) {
       this.baseSv.redirectToLogin();
     }
-    this.eventIds = this.baseSv.currentUser?.eventIds ?? [];
+    this.eventIds = this.baseSv.currentUser?.groupIds ?? [];
     try {
       this.isLoading = true;
       this.eventSv.getListEvent().subscribe((res: any) => {
@@ -43,20 +44,20 @@ export class EventComponent implements OnInit {
       this.isRegLoading = true;
       this.eventSv.register(id).then((res: any) => {
         if (res.statusCode == 200) {
-          this.toastSv.success(res.messages)
+          this.toastSv.success(res.messages, 'Thông báo', this.toastOptions)
           this.isRegLoading = false;
           var currentUser = this.baseSv.currentUser;
-          currentUser?.eventIds.push(res.data.dataId);
+          currentUser?.groupIds.push(res.data.dataId);
           localStorage.setItem(LocalStorageName.CurrentUserData, JSON.stringify(currentUser));
           this.baseSv.redirectTo('/su-kien');
         }
       },
         (err) => {
-          this.toastSv.warning(err.message);
+          this.toastSv.warning(err.message, 'Thông báo', this.toastOptions);
           this.isRegLoading = false;
         });
     } catch (error) {
-      this.toastSv.error('Có lỗi, vui lòng thử lại sau');
+      this.toastSv.error('Có lỗi, vui lòng thử lại sau', 'Thông báo', this.toastOptions);
       this.isRegLoading = false;
     }
   }

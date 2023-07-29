@@ -22,12 +22,16 @@
                                 <tr>
                                     <td [ngClass]="{'fw-bolder':item.userName==currentUserName}" scope="row"
                                         style="text-align: center; border-bottom: none; width: 20px;">
+                                        <!-- Trường hợp đạt chuẩn -->
                                         <img *ngIf="i==0 && item.progress>= 100" src="../../../assets/icons/first.png"
                                             width="20px">
                                         <img *ngIf="i==1 && item.progress>= 100" src="../../../assets/icons/second.png"
                                             width="20px">
                                         <img *ngIf="i==2 && item.progress>= 100" src="../../../assets/icons/third.png"
                                             width="20px">
+                                        <!-- Trường hợp chưa đạt -->
+                                        <span *ngIf="(i==0 || i==1 || i==2 )&& item.progress < 100">{{i+1}}</span>
+                                        <!-- Trường hợp ngoài top 3 -->
                                         <span *ngIf="i>=3">{{i+1}}</span>
                                     </td>
                                     <td [ngClass]="{'fw-bolder':item.userName==currentUserName}"
@@ -41,6 +45,8 @@
                                         <span
                                             [ngClass]="item.progress<50?'text-danger':item.progress<80?'text-warning':item.progress<100?'text-primary':'text-success'"
                                             [ngStyle]="{'font-size':'10px', 'font-style':'italic'}">({{item.progress}}%)</span>
+                                        <img src="../../../assets/icons/pngegg-1.png" width="20px"
+                                            *ngIf="item.progress < groupProgress-5 && groupProgress>30 && item.progress<100">
                                     </td>
                                 </tr>
                                 <tr>

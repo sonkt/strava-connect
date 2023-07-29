@@ -10,6 +10,7 @@ import { GroupService } from 'src/app/services/group.service';
 })
 export class GroupComponent implements OnInit {
 
+  toastOptions = { positionClass: 'toast-custom' };
   constructor(private baseSv: BaseService, private groupSv: GroupService, private toastSv: ToastrService) { }
   listGroups: { id: string, name: string, target: number, targetType: number, description: string, registered: boolean, isLockRegistered: boolean }[] = [];
   isLoading = false;
@@ -19,7 +20,7 @@ export class GroupComponent implements OnInit {
     if (!this.baseSv.currentUser) {
       this.baseSv.redirectToLogin();
     }
-    this.eventIds = this.baseSv.currentUser?.eventIds ?? [];
+    this.eventIds = this.baseSv.currentUser?.groupIds ?? [];
     try {
       this.isLoading = true;
       this.groupSv.getListGroups().subscribe((res: any) => {
@@ -42,17 +43,17 @@ export class GroupComponent implements OnInit {
       this.isRegLoading = true;
       this.groupSv.register(id).then((res: any) => {
         if (res.statusCode == 200) {
-          this.toastSv.success(res.messages)
+          this.toastSv.success(res.messages, 'Thông báo', this.toastOptions)
           this.isRegLoading = false;
           this.baseSv.redirectTo('/nhom');
         }
       },
         (err) => {
-          this.toastSv.warning(err.message);
+          this.toastSv.warning(err.message, 'Thông báo', this.toastOptions);
           this.isRegLoading = false;
         });
     } catch (error) {
-      this.toastSv.error('Có lỗi, vui lòng thử lại sau');
+      this.toastSv.error('Có lỗi, vui lòng thử lại sau', 'Thông báo', this.toastOptions);
       this.isRegLoading = false;
     }
   }

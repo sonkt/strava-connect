@@ -11,6 +11,7 @@ import { StravaService } from 'src/app/services/strava-service.service';
 })
 export class StatisticComponent implements OnInit {
 
+  toastOptions = { positionClass: 'toast-custom' };
   athletes: any[] = [];
   isLoading = false;
   currentUserName = '';
@@ -55,21 +56,21 @@ export class StatisticComponent implements OnInit {
       this.isSyncLoading = true;
       this.eventSv.sync().subscribe((res: any) => {
         if (res.statusCode == 200) {
-          this.toastSv.success(res.messages)
+          this.toastSv.success(res.messages, 'Thông báo', this.toastOptions)
           this.isSyncLoading = false;
           this.baseSv.redirectTo('/thong-ke');
         }
         else {
-          this.toastSv.warning(res.messages);
+          this.toastSv.warning(res.messages, 'Thông báo', this.toastOptions);
           this.isSyncLoading = false;
         }
       },
         (err) => {
-          this.toastSv.warning(err.message);
+          this.toastSv.warning(err.message, 'Thông báo', this.toastOptions);
           this.isSyncLoading = false;
         });
     } catch (error) {
-      this.toastSv.error('Có lỗi, vui lòng thử lại sau');
+      this.toastSv.error('Có lỗi, vui lòng thử lại sau', 'Thông báo', this.toastOptions);
       this.isSyncLoading = false;
     }
   }

@@ -1,5 +1,7 @@
 https://www.strava.com/oauth/authorize?client_id=110878&response_type=code&redirect_uri=http://localhost/exchange_token&approval_prompt=force&scope=read_all,profile:read_all,activity:read_all
 
+verifytoken: kiHdje9Opl
+
 curl -X POST https://www.strava.com/oauth/token \
 -F client_id=110878 \
 -F client_secret=26362775a543abb4e9092a81ccdecad2c9e03852 \
@@ -10,7 +12,7 @@ curl -X POST https://www.strava.com/api/v3/push_subscriptions \
       -F client_id=110878 \
       -F client_secret=26362775a543abb4e9092a81ccdecad2c9e03852 \
       -F callback_url=http://runner.bagps.vn:8100/api/v1/strava-event \
-      -F verify_token=STRAVA
+      -F verify_token=kiHdje9Opl
 
 curl -G https://www.strava.com/api/v3/push_subscriptions \
       -F client_id=110878 \

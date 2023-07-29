@@ -12,6 +12,7 @@ import { GroupService } from 'src/app/services/group.service';
 export class GroupStatisticComponent implements OnInit {
 
 
+  toastOptions = { positionClass: 'toast-custom' };
   isSyncLoading = false;
   isLoading = false;
   activities: any[] = [];
@@ -22,6 +23,8 @@ export class GroupStatisticComponent implements OnInit {
   groupTartget = 25;
   from: number = 0;
   to: number = 0;
+  groupProgress: number = 0;
+
 
   constructor(private groupSv: GroupService, private baseSv: BaseService, private route: ActivatedRoute, private toastSv: ToastrService) { }
 
@@ -41,11 +44,12 @@ export class GroupStatisticComponent implements OnInit {
             this.groupName = res.data.name;
             this.from = res.data.from;
             this.to = res.data.to;
+            this.groupProgress = res.data.progress;
             this.isLoading = false;
           }
           else if (res.statusCode == 207) {
             this.isLoading = false;
-            this.toastSv.warning(res.messages);
+            this.toastSv.warning(res.messages, 'Thông báo', this.toastOptions);
           }
         });
       });
@@ -62,21 +66,21 @@ export class GroupStatisticComponent implements OnInit {
       this.isSyncLoading = true;
       this.groupSv.sync().subscribe((res: any) => {
         if (res.statusCode == 200) {
-          this.toastSv.success(res.messages)
+          this.toastSv.success(res.messages, 'Thông báo', this.toastOptions)
           this.isSyncLoading = false;
           top?.location.reload();
         }
         else {
-          this.toastSv.warning(res.messages);
+          this.toastSv.warning(res.messages, 'Thông báo', this.toastOptions);
           this.isSyncLoading = false;
         }
       },
         (err) => {
-          this.toastSv.warning(err.message);
+          this.toastSv.warning(err.message, 'Thông báo', this.toastOptions);
           this.isSyncLoading = false;
         });
     } catch (error) {
-      this.toastSv.error('Có lỗi, vui lòng thử lại sau');
+      this.toastSv.error('Có lỗi, vui lòng thử lại sau', 'Thông báo', this.toastOptions);
       this.isSyncLoading = false;
     }
   }

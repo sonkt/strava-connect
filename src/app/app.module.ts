@@ -18,6 +18,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GroupComponent } from './components/group/group.component';
 import { GroupStatisticComponent } from './components/group-statistic/group-statistic.component';
+import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { GroupStatisticComponent } from './components/group-statistic/group-stat
     HeaderComponent,
     EventComponent,
     GroupComponent,
-    GroupStatisticComponent
+    GroupStatisticComponent,
+    UpdateProfileComponent
   ],
   imports: [
     ToastrModule.forRoot({

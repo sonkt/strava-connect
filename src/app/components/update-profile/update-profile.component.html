@@ -1,0 +1,72 @@
+<div class="container">
+    <div class="row">
+        <div class="col-10 offset-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+            <div class="card">
+                <div class="card-header text-center">
+                    Cập nhật thông tin tài khoản
+                </div>
+                <div class="card-body">
+                    <form #updForm="ngForm" (ngSubmit)="onSubmit(updForm)">
+                        <div class="form-outline mb-2 text-center" *ngIf="isInitLoading">
+                            <app-loading class="mr-1" [miniMode]="true"></app-loading>
+                        </div>
+                        <div class="form-outline  mb-2">
+                            <label class="form-label" for="targetType">Loại mục tiêu</label>
+                            <select class="form-select" id="targetType" name="targetType" required
+                                [(ngModel)]="profile.targetType">
+                                <option selected value="0">Theo tuần</option>
+                                <option value="1">Theo tháng</option>
+                                <option value="2">Theo quý</option>
+                                <option value="3">Theo năm</option>
+                            </select>
+                        </div>
+                        <div class="form-outline  mb-2">
+                            <label class="form-label" for="target">Mục tiêu</label>
+                            <input type="tesxt" id="target" name="target" class="form-control"
+                                [(ngModel)]="profile.target" required />
+                        </div>
+                        <div class="form-outline  mb-2">
+                            <label class="form-label" for="fullName">Họ tên</label>
+                            <input type="email" id="fullName" name="fullName" class="form-control"
+                                [(ngModel)]="profile.fullName" required />
+                        </div>
+                        <div class="form-outline  mb-2">
+                            <label class="form-label" for="email">Email</label>
+                            <input type="email" id="email" name="email" class="form-control" [(ngModel)]="profile.email"
+                                required />
+                        </div>
+                        <div class="form-outline  mb-2">
+                            <label class="form-label" for="avatar">Avatar</label>
+                            <input type="file" id="avatar" name="avatar" class="form-control form-control-sm"
+                                (change)="selectFile($event)" />
+                            <img [src]="profile.avatar" *ngIf="profile.avatar" style="width: 100px; padding: 5px 0;">
+                        </div>
+                        <div class="form-outline  mb-2">
+                            <label class="form-label" for="pasword">Mật khẩu <span
+                                    style="font-size: 8px; font-style: italic; color:red">(để trống nếu không thay
+                                    đổi)</span></label>
+                            <input type="password" id="password" name="password" class="form-control"
+                                [(ngModel)]="profile.password"
+                                [passwordValidate]="{level:2, rePasswordControl:updForm.controls['rePassword']}" />
+                        </div>
+                        <div class="form-outline  mb-2">
+                            <label class="form-label" for="repassword">Nhập lại mật khẩu</label>
+                            <input type="password" id="repassword" name="repassword" class="form-control"
+                                [(ngModel)]="profile.repassword"
+                                [passwordValidate]="{compareValue:updForm.value.password}" />
+                        </div>
+                        <div class="input-row text-center text-danger pb-0" *ngIf="errorMessage">
+                            {{ errorMessage}}
+                        </div>
+                        <div class="input-row text-center text-success pb-0" *ngIf="successMessage">
+                            {{ successMessage}}
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block  mb-2"
+                            [disabled]="updForm.invalid && isLoading"><app-loading class="mr-1" [miniMode]="true"
+                                *ngIf="isLoading"></app-loading> Cập nhật</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

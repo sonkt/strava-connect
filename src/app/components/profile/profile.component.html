@@ -7,6 +7,9 @@
                 </div>
                 <div class="card-body">
                     <ul class="list-group list-group-flush">
+                        <li class="list-group-item text-center">
+                            <img src="{{user.avatar}}" class="rounded mx-auto d-block" style="width: 100px;" />
+                        </li>
                         <li class="list-group-item text-center" *ngIf="isLoading"><app-loading class="mr-1"
                                 [miniMode]="true"></app-loading></li>
                         <li class="list-group-item">Tài khoản: <b>{{user.userName}}</b></li>
@@ -17,7 +20,12 @@
                                 thực</a>)</li>
                         <li class="list-group-item" *ngIf="user?.userStatus==2">Trạng thái: <b>Đã xác thực</b></li>
                         <li class="list-group-item" *ngIf="user?.userStatus==3">Trạng thái: <b>Hết hạn</b></li>
-                        <li class="list-group-item">Thành tích tuần hiện tại: <b> {{(user.distance??0)/1000 |
+
+                        <li class="list-group-item" *ngIf="user?.targetType==0">Hạng mục tiêu: <b>Theo tuần</b></li>
+                        <li class="list-group-item" *ngIf="user?.targetType==1">Hạng mục tiêu: <b>Theo tháng</b></li>
+                        <li class="list-group-item" *ngIf="user?.targetType==2">Hạng mục tiêu: <b>Theo quý</b></li>
+                        <li class="list-group-item" *ngIf="user?.targetType==3">Hạng mục tiêu: <b>Theo năm</b></li>
+                        <li class="list-group-item">Thành tích hiện tại: <b> {{(user?.distance??0)/1000 |
                                 number:'1.2-2'}} / {{user.target}} (km)</b>
                             <div class="progress" role="progressbar"
                                 [attr.aria-valuenow]="user.progress>100?100:user.progress" aria-valuemin="0"
@@ -27,6 +35,9 @@
                                     [ngStyle]="{'width': user.progress +'%'}">
                                 </div>
                             </div>
+                        </li>
+                        <li class="list-group-item text-center">
+                            <a href="/cap-nhat-profile">Cập nhật</a>
                         </li>
                     </ul>
                 </div>

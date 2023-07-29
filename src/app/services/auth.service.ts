@@ -8,7 +8,7 @@ import { StatusCode } from '../enums/http.statuscode.enum';
 import { throwError } from 'rxjs/internal/observable/throwError';
 import { LocalStorageName } from '../enums/local-storage-name.enum';
 import { catchError, take } from 'rxjs/operators';
-import { UserLogin } from '../data/user.model';
+import { UserLogin, UserProfile } from '../data/user.model';
 import { LoginStatus } from '../enums/login-status.enum';
 
 @Injectable({
@@ -92,7 +92,7 @@ export class AuthService {
   }
 
   private handleError(errorResponse: HttpErrorResponse) {
-    let errorMessage: string = errorResponse.error.messages;
+    let errorMessage: string = errorResponse?.error?.messages ? errorResponse.error.messages : errorResponse?.error?.message;
     return throwError(errorMessage);
   }
 
@@ -124,6 +124,38 @@ export class AuthService {
     else {
       throw new Error('Vui lòng đăng nhập');
     }
+  }
+
+
+
+  update_profile(profile: UserProfile) {
+    const user = this.baseSv.currentUser;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${user?.accessToken}`,
+    });
+    return this.http
+      .put<APIResponse>(
+        environment.api.baseUrl +
+        ':' +
+        environment.api.basePort +
+        '/' +
+        environment.api.users.profile,
+        profile,
+        { headers }
+      )
+      .pipe(
+        map(async (resData) => {
+          if (resData.statusCode === StatusCode.OK) {
+
+          }
+          else {
+            const errorMessage = resData.messages;
+            throw new Error(errorMessage);
+          }
+        }),
+        catchError(this.handleError)
+      ).toPromise();
   }
 
 }
