@@ -1,9 +1,12 @@
-::ng-deep .card .card-header,
-.card .card-body {
+::ng-deep .card .card-header {
+    padding: 5px;
+}
+
+::ng-deep .card .card-body {
     padding: 0px;
 
     .table tr td {
-        padding: 5px 0px 5px 0px;
+        padding: 5px;
         vertical-align: middle;
     }
 }
