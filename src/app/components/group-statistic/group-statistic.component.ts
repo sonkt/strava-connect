@@ -17,13 +17,13 @@ export class GroupStatisticComponent implements OnInit {
   isLoading = false;
   activities: any[] = [];
   currentUserName = '';
+  groupId = '';
   groupName = '';
   groupDesc = '';
   groupTargetType = 1;
   groupTartget = 25;
   from: number = 0;
   to: number = 0;
-  groupProgress: number = 0;
 
 
   constructor(private groupSv: GroupService, private baseSv: BaseService, private route: ActivatedRoute, private toastSv: ToastrService) { }
@@ -42,9 +42,10 @@ export class GroupStatisticComponent implements OnInit {
             this.activities = res.data.members;
             this.groupDesc = res.data.description;
             this.groupName = res.data.name;
+            this.groupId = res.data.id;
+            this.groupTargetType = res.data.targetType;
             this.from = res.data.from;
             this.to = res.data.to;
-            this.groupProgress = res.data.progress;
             this.isLoading = false;
           }
           else if (res.statusCode == 207) {

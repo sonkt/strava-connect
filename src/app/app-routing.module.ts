@@ -9,6 +9,7 @@ import { EventComponent } from './components/event/event.component';
 import { GroupComponent } from './components/group/group.component';
 import { GroupStatisticComponent } from './components/group-statistic/group-statistic.component';
 import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
+import { GroupPersonalTargetComponent } from './components/group-personal-target/group-personal-target.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,10 @@ const routes: Routes = [
   {
     path: getRelativeRoute('/nhom'),
     component: GroupComponent
+  },
+  {
+    path: getRelativeRoute('/cap-nhat-muc-tieu'),
+    component: GroupPersonalTargetComponent
   },
   {
     path: getRelativeRoute('/cap-nhat-profile'),

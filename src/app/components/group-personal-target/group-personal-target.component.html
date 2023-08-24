@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="row">
+        <div class="col-10 offset-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h2>Cập nhật mục tiêu nhóm</h2>
+                    <p>{{groupResult.groupName}}</p>
+                </div>
+                <div class="card-body">
+                    <form #updForm="ngForm" (ngSubmit)="onSubmit(updForm)">
+                        <input type="hidden" id="id" name="id" value="{{groupResult.id}}"
+                            [(ngModel)]="groupResult.id" />
+                        <div class="form-outline mb-2 text-center" *ngIf="isInitLoading">
+                            <app-loading class="mr-1" [miniMode]="true"></app-loading>
+                        </div>
+                        <div class="form-outline  mb-2">
+                            <label class="form-label" for="targetType">Loại mục tiêu</label>
+                            <select class="form-select" id="targetType" name="targetType" required
+                                [(ngModel)]="groupResult.targetType">
+                                <option selected value="1">Theo tuần</option>
+                                <option value="2">Theo tháng</option>
+                                <option value="3">Theo quý</option>
+                                <option value="4">Theo năm</option>
+                            </select>
+                        </div>
+                        <div class="form-outline  mb-2">
+                            <label class="form-label" for="target">Mục tiêu</label>
+                            <input type="text" id="target" name="target" class="form-control"
+                                [(ngModel)]="groupResult.target" required />
+                        </div>
+                        <div class="input-row text-center text-danger pb-0" *ngIf="errorMessage">
+                            {{ errorMessage}}
+                        </div>
+                        <div class="input-row text-center text-success pb-0" *ngIf="successMessage">
+                            {{ successMessage}}
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block mb-2"
+                            [disabled]="updForm.invalid && isLoading"><app-loading class="mr-1" [miniMode]="true"
+                                *ngIf="isLoading"></app-loading> Cập nhật</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -6,6 +6,7 @@ import { APIResponse } from '../data/http.response.model';
 import { catchError, map } from 'rxjs/operators';
 import { StatusCode } from '../enums/http.statuscode.enum';
 import { throwError } from 'rxjs/internal/observable/throwError';
+import { GroupResultModel } from '../data/group.model';
 
 @Injectable({
   providedIn: 'root'
@@ -62,8 +63,6 @@ export class GroupService {
     }
   }
 
-
-
   register(groupId: string) {
     const user = this.baseSv.currentUser;
     const headers = new HttpHeaders({
@@ -100,6 +99,53 @@ export class GroupService {
       throw new Error('Vui lòng đăng nhập');
     }
   }
+
+  update_target(groupResult: GroupResultModel) {
+    const user = this.baseSv.currentUser;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${user?.accessToken}`,
+    });
+    return this.http
+      .put<APIResponse>(
+        environment.api.baseUrl +
+        ':' +
+        environment.api.basePort +
+        '/' +
+        environment.api.group.personal,
+        groupResult,
+        { headers }
+      )
+      .pipe(
+        map(async (resData) => {
+          if (resData.statusCode === StatusCode.OK) {
+
+          }
+          else {
+            const errorMessage = resData.messages;
+            throw new Error(errorMessage);
+          }
+        }),
+        catchError(this.handleError)
+      ).toPromise();
+  }
+
+  getGroupResult(groupId: string) {
+    const url = `${environment.api.baseUrl}:${environment.api.basePort}/${environment.api.group.personal}/${groupId}`;
+    const user = this.baseSv.currentUser;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${user?.accessToken}`,
+    });
+    if (user) {
+      return this.http
+        .get(url, { headers });
+    }
+    else {
+      throw new Error('Vui lòng đăng nhập');
+    }
+  }
+
 
   private handleError(errorResponse: HttpErrorResponse) {
     let errorMessage: string = errorResponse.error.messages;

@@ -19,6 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GroupComponent } from './components/group/group.component';
 import { GroupStatisticComponent } from './components/group-statistic/group-statistic.component';
 import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
+import { GroupPersonalTargetComponent } from './components/group-personal-target/group-personal-target.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { UpdateProfileComponent } from './components/update-profile/update-profi
     EventComponent,
     GroupComponent,
     GroupStatisticComponent,
-    UpdateProfileComponent
+    UpdateProfileComponent,
+    GroupPersonalTargetComponent
   ],
   imports: [
     ToastrModule.forRoot({

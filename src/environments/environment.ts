@@ -25,7 +25,8 @@ export const environment = {
     group: {
       list: 'api/v1/groups/list',
       register: 'api/v1/groups/reg-group',
-      detail: 'api/v1/groups/detail'
+      detail: 'api/v1/groups/detail',
+      personal: 'api/v1/groups/personal'
     }
   },
   redirectLink: 'http://localhost:4200',

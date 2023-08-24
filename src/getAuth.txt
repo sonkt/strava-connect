@@ -11,7 +11,7 @@ curl -X POST https://www.strava.com/oauth/token \
 curl -X POST https://www.strava.com/api/v3/push_subscriptions \
       -F client_id=110878 \
       -F client_secret=26362775a543abb4e9092a81ccdecad2c9e03852 \
-      -F callback_url=http://runner.bagps.vn:8100/api/v1/strava-event \
+      -F callback_url=https://runner.bagps.vn:8100/api/v1/strava-event \
       -F verify_token=kiHdje9Opl
 
 curl -G https://www.strava.com/api/v3/push_subscriptions \

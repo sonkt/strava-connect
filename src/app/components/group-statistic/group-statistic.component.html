@@ -5,8 +5,9 @@
                 <div class="card-header text-center">
                     <h2>{{groupName}}</h2>
                     <p style="margin-bottom: 0px;">{{groupDesc}}</p>
-                    <p style="margin-bottom: 0px;">{{(from * 1000)| date:'dd/MM/yyyy'}} - {{(to * 1000)|
-                        date:'dd/MM/yyyy'}}</p>
+                    <p style="margin-bottom: 0px;" *ngIf="groupTargetType != 5.0">{{(from * 1000)| date:'dd/MM/yyyy'}} -
+                        {{(to * 1000)|
+                        date:'dd/MM/yyyy'}} {{groupTargetType}}</p>
                 </div>
                 <div class="card-body">
                     <table class="table">
@@ -45,8 +46,13 @@
                                         <span
                                             [ngClass]="item.progress<50?'text-danger':item.progress<80?'text-warning':item.progress<100?'text-primary':'text-success'"
                                             [ngStyle]="{'font-size':'10px', 'font-style':'italic'}">({{item.progress}}%)</span>
-                                        <img src="../../../assets/icons/pngegg-1.png" width="20px"
-                                            *ngIf="item.progress < groupProgress-5 && groupProgress>30 && item.progress<100">
+                                        <img src="../../../assets/icons/turtle_running.gif" width="30px"
+                                            *ngIf="item.progress < item.targetProgress-5 && item.targetProgress>30 && item.progress<100">
+                                        <img src="../../../assets/icons/finisher.gif" width="30px"
+                                            *ngIf="item.progress >=100">
+                                        <img src="../../../assets/icons/rabbit_run.gif" width="20px"
+                                            style="opacity: 50%;"
+                                            *ngIf="!(item.progress < item.targetProgress-5 && item.targetProgress>30) && item.progress < 100">
                                     </td>
                                 </tr>
                                 <tr>
@@ -74,6 +80,8 @@
                                         <app-loading class="mr-1" [miniMode]="true" *ngIf="isSyncLoading"></app-loading>
                                         Cập nhật kết quả từ Strava
                                     </label>
+                                    <p *ngIf="groupTargetType==5"><a href="/cap-nhat-muc-tieu/?gid={{groupId}}">Cập nhật
+                                            mục tiêu</a></p>
                                 </td>
                             </tr>
                             <tr>
