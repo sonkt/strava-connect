@@ -3,9 +3,9 @@
         <div class="col-12 col-sm-10 offset-sm-1 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
             <div class="card">
                 <div class="card-header text-center">
-                    <h2>{{groupName}}</h2>
-                    <p style="margin-bottom: 0px;">{{groupDesc}}</p>
-                    <p style="margin-bottom: 0px;" *ngIf="groupTargetType != 5.0">{{(from * 1000)| date:'dd/MM/yyyy'}} -
+                    <h2>{{eventName}}</h2>
+                    <p style="margin-bottom: 0px;">{{eventDesc}}</p>
+                    <p>{{(from * 1000)| date:'dd/MM/yyyy'}} -
                         {{(to * 1000)|
                         date:'dd/MM/yyyy'}}</p>
                 </div>
@@ -14,9 +14,11 @@
                         <thead>
                             <tr>
                                 <th scope="col" style="text-align: left;">#</th>
-                                <th scope="col" style="text-align: left;">VĐV</th>
-                                <th scope="col" style="text-align: left;">Mục tiêu</th>
-                                <th scope="col" style="text-align: left;">Km</th>
+                                <th scope="col" style="text-align: left; padding-left: 0px;">VĐV</th>
+                                <th scope="col" style="text-align: left; padding-left: 0px;">Số ngày</th>
+                                <th scope="col" style="text-align: left; padding-left: 0px;">Số phút</th>
+                                <th scope="col" style="text-align: left; padding-left: 0px;">Số Km</th>
+                                <th scope="col" style="text-align: left; padding-left: 0px;">Tiến độ</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -44,12 +46,19 @@
                                     </td>
                                     <td [ngClass]="{'fw-bolder':item.userName==currentUserName}"
                                         style=" border-bottom: none; padding-left: 0px;">
-                                        {{item.target}}km/{{item.targetTypeText}}
+                                        {{item.numberOfDays}}
+                                    </td>
+                                    <td [ngClass]="{'fw-bolder':item.userName==currentUserName}"
+                                        style=" border-bottom: none; padding-left: 0px;">
+                                        {{item.time}}
+                                    </td>
+                                    <td [ngClass]="{'fw-bolder':item.userName==currentUserName}"
+                                        style=" border-bottom: none; padding-left: 0px;">
+                                        {{(item.distance/1000) |
+                                        number:'0.1-2':'en'}}
                                     </td>
                                     <td [ngClass]="{'fw-bolder':item.userName==currentUserName}"
                                         style=" border-bottom: none;">
-                                        {{(item.distance/1000) |
-                                        number:'0.1-2':'en'}}
                                         <span
                                             [ngClass]="item.progress<50?'text-danger':item.progress<80?'text-warning':item.progress<100?'text-primary':'text-success'"
                                             [ngStyle]="{'font-size':'10px', 'font-style':'italic'}">({{item.progress}}%)</span>
@@ -63,7 +72,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="4" style="padding-top: 0px;">
+                                    <td colspan="6" style="padding-top: 0px;">
                                         <div class="progress" role="progressbar"
                                             [attr.aria-valuenow]="item.progress>100?100:item.progress" aria-valuemin="0"
                                             aria-valuemax="100">
@@ -76,26 +85,24 @@
                                 </tr>
                             </ng-template>
                             <tr *ngIf="isLoading">
-                                <td colspan="4" class="text-center">
+                                <td colspan="6" class="text-center">
                                     <app-loading class="mr-1" [miniMode]="true"></app-loading>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-center text-danger fst-italic" colspan="4">
+                                <td class="text-center text-danger fst-italic" colspan="6">
                                     <label style="cursor: pointer; text-decoration: underline;" class="text-primary"
                                         (click)="sync()">
                                         <app-loading class="mr-1" [miniMode]="true" *ngIf="isSyncLoading"></app-loading>
                                         Cập nhật kết quả từ Strava
                                     </label>
-                                    <p *ngIf="groupTargetType==5"><a href="/cap-nhat-muc-tieu/?gid={{groupId}}">Cập nhật
-                                            mục tiêu</a></p>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-center text-danger fst-italic" colspan="4">Nếu bạn chưa có tên trong
+                                <td class="text-center text-danger fst-italic" colspan="6">Nếu bạn chưa có tên trong
                                     danh sách,
                                     vui lòng vào
-                                    trang "Nhóm" và nhấn chọn "Tham gia".</td>
+                                    trang "Sự kiện" và nhấn chọn "Tham gia".</td>
                             </tr>
                         </tbody>
                     </table>

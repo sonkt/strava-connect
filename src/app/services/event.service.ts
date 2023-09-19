@@ -31,6 +31,21 @@ export class EventService {
     }
   }
 
+  getActivities(eventId: string) {
+    const url = `${environment.api.baseUrl}:${environment.api.basePort}/${environment.api.event.detail}/${eventId}`;
+    const user = this.baseSv.currentUser;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${user?.accessToken}`,
+    });
+    if (user) {
+      return this.http
+        .get(url, { headers });
+    }
+    else {
+      throw new Error('Vui lòng đăng nhập');
+    }
+  }
   getListEvent() {
     const url = `${environment.api.baseUrl}:${environment.api.basePort}/${environment.api.event.list}`;
     const user = this.baseSv.currentUser;

@@ -20,6 +20,7 @@ export const environment = {
     event: {
       current: 'api/v1/events/current',
       list: 'api/v1/events/list',
+      detail: 'api/v1/events/detail',
       register: 'api/v1/events/reg-event'
     },
     group: {

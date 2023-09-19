@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { LocalStorageName } from 'src/app/enums/local-storage-name.enum';
 import { BaseService } from 'src/app/services/base.service';
 import { EventService } from 'src/app/services/event.service';
 
@@ -46,9 +45,6 @@ export class EventComponent implements OnInit {
         if (res.statusCode == 200) {
           this.toastSv.success(res.messages, 'Thông báo', this.toastOptions)
           this.isRegLoading = false;
-          var currentUser = this.baseSv.currentUser;
-          currentUser?.groupIds.push(res.data.dataId);
-          localStorage.setItem(LocalStorageName.CurrentUserData, JSON.stringify(currentUser));
           this.baseSv.redirectTo('/su-kien');
         }
       },

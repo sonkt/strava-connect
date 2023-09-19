@@ -17,3 +17,5 @@ curl -X POST https://www.strava.com/api/v3/push_subscriptions \
 curl -G https://www.strava.com/api/v3/push_subscriptions \
       -F client_id=110878 \
       -F client_secret=26362775a543abb4e9092a81ccdecad2c9e03852
+
+      25/09 1695574800.0
