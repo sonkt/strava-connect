@@ -15,9 +15,9 @@
                             <tr>
                                 <th scope="col" style="text-align: left;">#</th>
                                 <th scope="col" style="text-align: left; padding-left: 0px;">VĐV</th>
-                                <th scope="col" style="text-align: left; padding-left: 0px;">Số ngày</th>
-                                <th scope="col" style="text-align: left; padding-left: 0px;">Số phút</th>
-                                <th scope="col" style="text-align: left; padding-left: 0px;">Số Km</th>
+                                <th scope="col" style="text-align: left; padding-left: 0px;">Ngày</th>
+                                <th scope="col" style="text-align: left; padding-left: 0px;">Km</th>
+                                <th scope="col" style="text-align: left; padding-left: 0px;">Phút</th>
                                 <th scope="col" style="text-align: left; padding-left: 0px;">Tiến độ</th>
                             </tr>
                         </thead>
@@ -50,12 +50,12 @@
                                     </td>
                                     <td [ngClass]="{'fw-bolder':item.userName==currentUserName}"
                                         style=" border-bottom: none; padding-left: 0px;">
-                                        {{item.time}}
+                                        {{(item.distance/1000) |
+                                        number:'0.1-2':'en'}}
                                     </td>
                                     <td [ngClass]="{'fw-bolder':item.userName==currentUserName}"
                                         style=" border-bottom: none; padding-left: 0px;">
-                                        {{(item.distance/1000) |
-                                        number:'0.1-2':'en'}}
+                                        {{item.time}}
                                     </td>
                                     <td [ngClass]="{'fw-bolder':item.userName==currentUserName}"
                                         style=" border-bottom: none;">

@@ -12,7 +12,7 @@ export class EventComponent implements OnInit {
 
   toastOptions = { positionClass: 'toast-custom' };
   constructor(private baseSv: BaseService, private eventSv: EventService, private toastSv: ToastrService) { }
-  listEvents: { id: string, name: string, from: number, to: number, description: string, status: number, registered: boolean }[] = [];
+  listEvents: { id: string, name: string, from: number, to: number, description: string, isLocked: number, registered: boolean }[] = [];
   isLoading = false;
   isRegLoading = false;
   eventIds!: string[];

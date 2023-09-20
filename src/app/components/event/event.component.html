@@ -23,12 +23,9 @@
                                 <td scope="row" style="text-align: left;">{{i+1}}
                                 </td>
                                 <td>
-                                    <a href="/thanh-tich-su-kien/?eid={{item.id}}" *ngIf="item.registered">
+                                    <a href="/thanh-tich-su-kien/?eid={{item.id}}">
                                         {{item.name}}
                                     </a>
-                                    <span *ngIf="!item.registered">
-                                        {{item.name}}
-                                    </span>
                                 </td>
                                 <td>{{(item.from *1000) | date:'dd/MM/yyyy'}}
                                 </td>
@@ -37,8 +34,7 @@
                                 <td>{{item.description}}</td>
                                 <td>
                                     <label style="cursor: pointer; text-decoration: underline;" class="text-primary"
-                                        (click)="register(item.id)"
-                                        *ngIf="(item.status==1 || item.status==2) && !item.registered">
+                                        (click)="register(item.id)" *ngIf="!item.registered && !item.isLocked">
                                         <app-loading class="mr-1" [miniMode]="true" *ngIf="isRegLoading"></app-loading>
                                         Tham gia
                                     </label>
