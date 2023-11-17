@@ -21,6 +21,7 @@ import { GroupStatisticComponent } from './components/group-statistic/group-stat
 import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
 import { GroupPersonalTargetComponent } from './components/group-personal-target/group-personal-target.component';
 import { EventStatisticComponent } from './components/event-statistic/event-statistic.component';
+import { UsernameValidateDirective } from './directive/username-validate.directive';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { EventStatisticComponent } from './components/event-statistic/event-stat
     RegisterComponent,
     LoadingComponent,
     PasswordValidateDirective,
+    UsernameValidateDirective,
     ProfileComponent,
     FooterComponent,
     HeaderComponent,
@@ -53,6 +55,7 @@ import { EventStatisticComponent } from './components/event-statistic/event-stat
     BrowserAnimationsModule
   ],
   exports: [
+    UsernameValidateDirective,
     PasswordValidateDirective
   ],
   providers: [],

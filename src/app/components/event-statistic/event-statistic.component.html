@@ -17,7 +17,7 @@
                                 <th scope="col" style="text-align: left; padding-left: 0px;">VĐV</th>
                                 <th scope="col" style="text-align: left; padding-left: 0px;">Ngày</th>
                                 <th scope="col" style="text-align: left; padding-left: 0px;">Km</th>
-                                <th scope="col" style="text-align: left; padding-left: 0px;">Phút</th>
+                                <th scope="col" style="text-align: left; padding-left: 0px;">T/gian</th>
                                 <th scope="col" style="text-align: left; padding-left: 0px;">Tiến độ</th>
                             </tr>
                         </thead>
@@ -43,6 +43,8 @@
                                         <a *ngIf="item.stravaId!=0" target="_blank" style="text-decoration: none;"
                                             href="https://www.strava.com/athletes/{{item.stravaId}}">{{item.fullName}}</a>
                                         <span *ngIf="item.stravaId==0">{{item.fullName}}</span>
+                                        <span *ngIf="item.isDnf else dnf35 "
+                                            style="font-style: italic;">&nbsp;(DNF)</span>
                                     </td>
                                     <td [ngClass]="{'fw-bolder':item.userName==currentUserName}"
                                         style=" border-bottom: none; padding-left: 0px;">
@@ -55,7 +57,7 @@
                                     </td>
                                     <td [ngClass]="{'fw-bolder':item.userName==currentUserName}"
                                         style=" border-bottom: none; padding-left: 0px;">
-                                        {{item.time}}
+                                        {{ baseSv.convertNumberToMinute(item.time,true)}}
                                     </td>
                                     <td [ngClass]="{'fw-bolder':item.userName==currentUserName}"
                                         style=" border-bottom: none;">
@@ -83,6 +85,90 @@
                                         </div>
                                     </td>
                                 </tr>
+                                <ng-template #dnf35>
+                                    <span style="font-style: italic;"
+                                        *ngIf="(item.numberOfDays) < 35 else dnf49">&nbsp;(CoT-35)</span>
+                                </ng-template>
+                                <ng-template #dnf49>
+                                    <span style="font-style: italic;"
+                                        *ngIf="(item.numberOfDays) < 49">&nbsp;(CoT-49)</span>
+                                </ng-template>
+                            </ng-template>
+                            <tr *ngIf="isLoading">
+                                <td colspan="6" class="text-center">
+                                    <app-loading class="mr-1" [miniMode]="true"></app-loading>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="text-align: left;">#</th>
+                                <th scope="col" style="text-align: left; padding-left: 0px;">Sweeper</th>
+                                <th scope="col" style="text-align: left; padding-left: 0px;">Ngày</th>
+                                <th scope="col" style="text-align: left; padding-left: 0px;">Km</th>
+                                <th scope="col" style="text-align: left; padding-left: 0px;">T/Gian</th>
+                                <th scope="col" style="text-align: left; padding-left: 0px;">Tiến độ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-template ngFor let-item let-i="index" [ngForOf]="pacers">
+                                <tr>
+                                    <td [ngClass]="{'fw-bolder':item.userName==currentUserName}" scope="row"
+                                        style="text-align: center; border-bottom: none; width: 20px;">
+                                        <span>{{i+1}}</span>
+                                    </td>
+                                    <td [ngClass]="{'fw-bolder':item.userName==currentUserName}"
+                                        style=" border-bottom: none; padding-left: 0px;">
+                                        <a *ngIf="item.stravaId!=0" target="_blank" style="text-decoration: none;"
+                                            href="https://www.strava.com/athletes/{{item.stravaId}}">{{item.fullName}}</a>
+                                        <span *ngIf="item.stravaId==0">{{item.fullName}}</span>
+                                        <span *ngIf="item.isDnf else cot "
+                                            style="font-style: italic;">&nbsp;(DNF)</span>
+                                    </td>
+                                    <td [ngClass]="{'fw-bolder':item.userName==currentUserName}"
+                                        style=" border-bottom: none; padding-left: 0px;">
+                                        {{item.numberOfDays}}
+                                    </td>
+                                    <td [ngClass]="{'fw-bolder':item.userName==currentUserName}"
+                                        style=" border-bottom: none; padding-left: 0px;">
+                                        {{(item.distance/1000) |
+                                        number:'0.1-2':'en'}}
+                                    </td>
+                                    <td [ngClass]="{'fw-bolder':item.userName==currentUserName}"
+                                        style=" border-bottom: none; padding-left: 0px;">
+                                        {{ baseSv.convertNumberToMinute(item.time,true)}}
+                                    </td>
+                                    <td [ngClass]="{'fw-bolder':item.userName==currentUserName}"
+                                        style=" border-bottom: none;">
+                                        <span
+                                            [ngClass]="item.progress<50?'text-danger':item.progress<80?'text-warning':item.progress<100?'text-primary':'text-success'"
+                                            [ngStyle]="{'font-size':'10px', 'font-style':'italic'}">({{item.progress}}%)</span>
+                                        <img src="../../../assets/icons/turtle_running.gif" width="30px"
+                                            *ngIf="item.progress < item.targetProgress-5 && item.targetProgress>30 && item.progress<100">
+                                        <img src="../../../assets/icons/finisher.gif" width="30px"
+                                            *ngIf="item.progress >=100">
+                                        <img src="../../../assets/icons/rabbit_run.gif" width="20px"
+                                            style="opacity: 50%;"
+                                            *ngIf="!(item.progress < item.targetProgress-5 && item.targetProgress>30) && item.progress < 100">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="6" style="padding-top: 0px;">
+                                        <div class="progress" role="progressbar"
+                                            [attr.aria-valuenow]="item.progress>100?100:item.progress" aria-valuemin="0"
+                                            aria-valuemax="100">
+                                            <div class="progress-bar"
+                                                [ngClass]="item.progress<50?'bg-danger':item.progress<80?'bg-warning':item.progress<100?'bg-primary':'bg-success'"
+                                                [ngStyle]="{'width': item.progress +'%'}">
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <ng-template #cot>
+                                    <span style="font-style: italic;" *ngIf="item.numberOfDays < 49">&nbsp;(CoT)</span>
+                                </ng-template>
                             </ng-template>
                             <tr *ngIf="isLoading">
                                 <td colspan="6" class="text-center">

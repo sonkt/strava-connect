@@ -9,15 +9,8 @@
                     <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
                         <div class="form-outline mb-4">
                             <label class="form-label" for="username">Tài khoản</label>
-                            <input type="text" id="username" name="username" class="form-control" ngModel required />
-                        </div>
-                        <div class="form-outline mb-4">
-                            <label class="form-label" for="baCode">Mã nhân viên</label>
-                            <input type="text" id="baCode" name="baCode" class="form-control" ngModel required />
-                        </div>
-                        <div class="form-outline mb-4">
-                            <label class="form-label" for="fullName">Họ tên</label>
-                            <input type="text" id="fullName" name="fullName" class="form-control" ngModel required />
+                            <input type="text" id="username" name="username" class="form-control" ngModel required
+                                [usernameValidate]="{min:4}" />
                         </div>
                         <div class="form-outline mb-4">
                             <label class="form-label" for="pasword">Mật khẩu</label>
@@ -29,6 +22,14 @@
                             <label class="form-label" for="repassword">Nhập lại mật khẩu</label>
                             <input type="password" id="repassword" name="repassword" class="form-control" ngModel
                                 [passwordValidate]="{compareValue:authForm.value.password}" required />
+                        </div>
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="baCode">Mã nhân viên</label>
+                            <input type="text" id="baCode" name="baCode" class="form-control" ngModel required />
+                        </div>
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="fullName">Họ tên</label>
+                            <input type="text" id="fullName" name="fullName" class="form-control" ngModel required />
                         </div>
                         <div class="input-row text-center text-danger pb-0" *ngIf="errorMessage">
                             {{ errorMessage}}

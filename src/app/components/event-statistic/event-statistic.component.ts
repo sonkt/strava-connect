@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Member } from 'src/app/data/member.model';
 import { BaseService } from 'src/app/services/base.service';
 import { EventService } from 'src/app/services/event.service';
 
@@ -14,7 +15,8 @@ export class EventStatisticComponent implements OnInit {
   toastOptions = { positionClass: 'toast-custom' };
   isSyncLoading = false;
   isLoading = false;
-  activities: any[] = [];
+  activities: Member[] = [];
+  pacers: Member[] = [];
   currentUserName = '';
   eventId = '';
   eventName = '';
@@ -23,7 +25,7 @@ export class EventStatisticComponent implements OnInit {
   to: number = 0;
 
 
-  constructor(private eventSv: EventService, private baseSv: BaseService, private route: ActivatedRoute, private toastSv: ToastrService) { }
+  constructor(private eventSv: EventService, public baseSv: BaseService, private route: ActivatedRoute, private toastSv: ToastrService) { }
 
   ngOnInit(): void {
     if (!this.baseSv.currentUser) {
@@ -36,13 +38,15 @@ export class EventStatisticComponent implements OnInit {
         this.isLoading = true;
         this.eventSv.getActivities(eventId).subscribe((res: any) => {
           if (res.statusCode == 200) {
-            this.activities = res.data.members;
+            const tempData: Member[] = res.data.members;
+            this.activities = tempData.filter(m => m.isPacer == false);
             this.eventDesc = res.data.description;
             this.eventName = res.data.name;
             this.eventId = res.data.id;
             this.from = res.data.from;
             this.to = res.data.to;
             this.isLoading = false;
+            this.pacers = tempData.filter(m => m.isPacer == true);
           }
           else if (res.statusCode == 207) {
             this.isLoading = false;

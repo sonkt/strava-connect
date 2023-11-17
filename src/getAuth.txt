@@ -18,4 +18,15 @@ curl -G https://www.strava.com/api/v3/push_subscriptions \
       -F client_id=110878 \
       -F client_secret=26362775a543abb4e9092a81ccdecad2c9e03852
 
-      25/09 1695574800.0
+{
+    "UserId" : ObjectId("64c331a31e198158132010bb"), 
+    "FullName" : "Khiếu Trung Sơn", 
+    "EventId" : ObjectId("6508088faac5dc01e3aa9a9a"), 
+    "Distance" : 0.0, 
+    "Time" : 0.0, 
+    "NumberOfDays" : NumberInt(0), 
+    "JoinedDate" : ISODate("2023-09-19T01:03:04.216+0000"), 
+    "LastUpdatedDate" : ISODate("2023-09-25T06:30:09.582+0000"), 
+    "Accepted" : true,
+    "IsPacer":true
+}
