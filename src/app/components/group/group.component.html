@@ -23,12 +23,9 @@
                                 <td scope="row" style="text-align: left;">{{i+1}}
                                 </td>
                                 <td>
-                                    <a href="/thanh-tich-nhom/?gid={{item.id}}" *ngIf="item.registered">
+                                    <a href="/thanh-tich-nhom/?gid={{item.id}}">
                                         {{item.name}}
                                     </a>
-                                    <span *ngIf="!item.registered">
-                                        {{item.name}}
-                                    </span>
                                 </td>
                                 <td>{{item.target}} km</td>
                                 <td *ngIf="item.targetType==1">Theo tuần</td>

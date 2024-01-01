@@ -5,9 +5,26 @@
                 <div class="card-header text-center">
                     <h2>{{groupName}}</h2>
                     <p style="margin-bottom: 0px;">{{groupDesc}}</p>
-                    <p style="margin-bottom: 0px;" *ngIf="groupTargetType != 5.0">{{(from * 1000)| date:'dd/MM/yyyy'}} -
-                        {{(to * 1000)|
-                        date:'dd/MM/yyyy'}}</p>
+                    <label for="optMonthFrom" class="form-label" style="float: left;">Từ tháng </label>
+                    <select name="optMonthFrom" id="optMonthFrom" [(ngModel)]="fromMonth"
+                        class="form-select form-select-sm" style="width: 60px; float: left;">
+                        <option [value]="m" *ngFor="let m of months" [selected]="m==currentMonth">{{m}}</option>
+                    </select>
+                    <select name="optYearFrom" id="optYearFrom" [(ngModel)]="fromYear"
+                        class="form-select form-select-sm" style="width: 80px; float: left;">
+                        <option [value]="m" *ngFor="let m of years" [selected]="m==currentYear">{{m}}</option>
+                    </select>
+                    <label for="optMonthTo" class="form-label" style="float: left;"> Đến tháng </label>
+                    <select name="optMonthTo" id="optMonthTo" [(ngModel)]="toMonth" class="form-select form-select-sm"
+                        style="width: 60px; float: left;">
+                        <option [value]="m" *ngFor="let m of months" [selected]="m==currentMonth">{{m}}</option>
+                    </select>
+                    <select name="optYearTo" id="optYearTo" [(ngModel)]="toYear" class="form-select form-select-sm"
+                        style="width: 80px; float: left;">
+                        <option [value]="m" *ngFor="let m of years" [selected]="m==currentYear">{{m}}</option>
+                    </select>
+                    <input type="button" class="form-button form-button-sm" style="width: 80px; float: left;"
+                        value="Xem" (click)="filter()" />
                 </div>
                 <div class="card-body">
                     <table class="table">
@@ -17,6 +34,7 @@
                                 <th scope="col" style="text-align: left;">VĐV</th>
                                 <th scope="col" style="text-align: left;">Mục tiêu</th>
                                 <th scope="col" style="text-align: left;">Km</th>
+                                <th scope="col" style="text-align: left;">Max</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -25,14 +43,15 @@
                                     <td [ngClass]="{'fw-bolder':item.userName==currentUserName}" scope="row"
                                         style="text-align: center; border-bottom: none; width: 20px;">
                                         <!-- Trường hợp đạt chuẩn -->
-                                        <img *ngIf="i==0 && item.progress>= 100" src="../../../assets/icons/first.png"
-                                            width="20px">
-                                        <img *ngIf="i==1 && item.progress>= 100" src="../../../assets/icons/second.png"
-                                            width="20px">
-                                        <img *ngIf="i==2 && item.progress>= 100" src="../../../assets/icons/third.png"
-                                            width="20px">
+                                        <img *ngIf="i==0 && item.progress>= 100 && item.maxDistance >= minLongRun"
+                                            src="../../../assets/icons/first.png" width="20px">
+                                        <img *ngIf="i==1 && item.progress>= 100 && item.maxDistance >= minLongRun"
+                                            src="../../../assets/icons/second.png" width="20px">
+                                        <img *ngIf="i==2 && item.progress>= 100 && item.maxDistance >= minLongRun"
+                                            src="../../../assets/icons/third.png" width="20px">
                                         <!-- Trường hợp chưa đạt -->
-                                        <span *ngIf="(i==0 || i==1 || i==2 )&& item.progress < 100">{{i+1}}</span>
+                                        <span
+                                            *ngIf="(i==0 || i==1 || i==2 )&& (item.progress < 100  || item.maxDistance < minLongRun)">{{i+1}}</span>
                                         <!-- Trường hợp ngoài top 3 -->
                                         <span *ngIf="i>=3">{{i+1}}</span>
                                     </td>
@@ -50,25 +69,18 @@
                                         style=" border-bottom: none;">
                                         {{(item.distance/1000) |
                                         number:'0.1-2':'en'}}
-                                        <span
-                                            [ngClass]="item.progress<50?'text-danger':item.progress<80?'text-warning':item.progress<100?'text-primary':'text-success'"
-                                            [ngStyle]="{'font-size':'10px', 'font-style':'italic'}">({{item.progress}}%)</span>
-                                        <img src="../../../assets/icons/turtle_running.gif" width="30px"
-                                            *ngIf="item.progress < item.targetProgress-5 && item.targetProgress>30 && item.progress<100">
-                                        <img src="../../../assets/icons/finisher.gif" width="30px"
-                                            *ngIf="item.progress >=100">
-                                        <img src="../../../assets/icons/rabbit_run.gif" width="20px"
-                                            style="opacity: 50%;"
-                                            *ngIf="!(item.progress < item.targetProgress-5 && item.targetProgress>30) && item.progress < 100">
                                     </td>
+                                    <td [ngClass]="{'fw-bolder':item.userName==currentUserName}"
+                                        style=" border-bottom: none;">{{(item.maxDistance/1000) |
+                                        number:'0.1-2':'en'}}</td>
                                 </tr>
                                 <tr>
-                                    <td colspan="4" style="padding-top: 0px;">
+                                    <td colspan="5" style="padding-top: 0px;">
                                         <div class="progress" role="progressbar"
                                             [attr.aria-valuenow]="item.progress>100?100:item.progress" aria-valuemin="0"
                                             aria-valuemax="100">
                                             <div class="progress-bar"
-                                                [ngClass]="item.progress<50?'bg-danger':item.progress<80?'bg-warning':item.progress<100?'bg-primary':'bg-success'"
+                                                [ngClass]="item.progress<50?'bg-danger':item.progress<80?'bg-warning':item.progress<100?'bg-primary':item.maxDistance < minLongRun?'bg-info':'bg-success'"
                                                 [ngStyle]="{'width': item.progress +'%'}">
                                             </div>
                                         </div>
@@ -76,12 +88,12 @@
                                 </tr>
                             </ng-template>
                             <tr *ngIf="isLoading">
-                                <td colspan="4" class="text-center">
+                                <td colspan="5" class="text-center">
                                     <app-loading class="mr-1" [miniMode]="true"></app-loading>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-center text-danger fst-italic" colspan="4">
+                                <td class="text-center text-danger fst-italic" colspan="5">
                                     <label style="cursor: pointer; text-decoration: underline;" class="text-primary"
                                         (click)="sync()">
                                         <app-loading class="mr-1" [miniMode]="true" *ngIf="isSyncLoading"></app-loading>
@@ -92,7 +104,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-center text-danger fst-italic" colspan="4">Nếu bạn chưa có tên trong
+                                <td class="text-center text-danger fst-italic" colspan="5">Nếu bạn chưa có tên trong
                                     danh sách,
                                     vui lòng vào
                                     trang "Nhóm" và nhấn chọn "Tham gia".</td>

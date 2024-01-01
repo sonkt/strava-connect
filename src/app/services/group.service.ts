@@ -15,8 +15,12 @@ export class GroupService {
 
   constructor(private http: HttpClient, private baseSv: BaseService) { }
 
-  getActivities(groupId: string) {
-    const url = `${environment.api.baseUrl}:${environment.api.basePort}/${environment.api.group.detail}/${groupId}`;
+  getActivities(groupId: string, start?: string, end?: string) {
+
+    let url = `${environment.api.baseUrl}:${environment.api.basePort}/${environment.api.group.detail}/${groupId}`;
+    if (start != null && end != null) {
+      url = `${environment.api.baseUrl}:${environment.api.basePort}/${environment.api.group.detail}/${start}/${end}/${groupId}`;
+    }
     const user = this.baseSv.currentUser;
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',

@@ -22,6 +22,7 @@ import { UpdateProfileComponent } from './components/update-profile/update-profi
 import { GroupPersonalTargetComponent } from './components/group-personal-target/group-personal-target.component';
 import { EventStatisticComponent } from './components/event-statistic/event-statistic.component';
 import { UsernameValidateDirective } from './directive/username-validate.directive';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 @NgModule({
   declarations: [
