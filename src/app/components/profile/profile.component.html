@@ -25,7 +25,7 @@
                         <li class="list-group-item" *ngIf="user?.targetType==2">Hạng mục tiêu: <b>Theo tháng</b></li>
                         <li class="list-group-item" *ngIf="user?.targetType==3">Hạng mục tiêu: <b>Theo quý</b></li>
                         <li class="list-group-item" *ngIf="user?.targetType==4">Hạng mục tiêu: <b>Theo năm</b></li>
-                        <li class="list-group-item">Thành tích hiện tại: <b> {{(user?.distance??0)/1000 |
+                        <li class="list-group-item">Thành tích hiện tại: <b> {{(user.distance)/1000 |
                                 number:'1.2-2'}} / {{user.target}} (km)</b>
                             <div class="progress" role="progressbar"
                                 [attr.aria-valuenow]="user.progress>100?100:user.progress" aria-valuemin="0"
