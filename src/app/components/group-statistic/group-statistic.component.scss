@@ -1,5 +1,23 @@
 ::ng-deep .card .card-header {
     padding: 5px;
+
+    select {
+        margin: 2px;
+        padding: 4px;
+        border: none;
+        background-color: #ececec;
+
+        option {
+            padding: 2px;
+            text-align: center !important;
+        }
+    }
+
+    label {
+        line-height: 28px;
+        padding: 2px;
+        margin: 0 2px;
+    }
 }
 
 ::ng-deep .card .card-body {
@@ -9,4 +27,5 @@
         padding: 5px;
         vertical-align: middle;
     }
+
 }

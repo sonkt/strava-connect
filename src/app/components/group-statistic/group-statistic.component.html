@@ -5,26 +5,37 @@
                 <div class="card-header text-center">
                     <h2>{{groupName}}</h2>
                     <p style="margin-bottom: 0px;">{{groupDesc}}</p>
-                    <label for="optMonthFrom" class="form-label" style="float: left;">Từ tháng </label>
-                    <select name="optMonthFrom" id="optMonthFrom" [(ngModel)]="fromMonth"
-                        class="form-select form-select-sm" style="width: 60px; float: left;">
-                        <option [value]="m" *ngFor="let m of months" [selected]="m==currentMonth">{{m}}</option>
-                    </select>
-                    <select name="optYearFrom" id="optYearFrom" [(ngModel)]="fromYear"
-                        class="form-select form-select-sm" style="width: 80px; float: left;">
-                        <option [value]="m" *ngFor="let m of years" [selected]="m==currentYear">{{m}}</option>
-                    </select>
-                    <label for="optMonthTo" class="form-label" style="float: left;"> Đến tháng </label>
-                    <select name="optMonthTo" id="optMonthTo" [(ngModel)]="toMonth" class="form-select form-select-sm"
-                        style="width: 60px; float: left;">
-                        <option [value]="m" *ngFor="let m of months" [selected]="m==currentMonth">{{m}}</option>
-                    </select>
-                    <select name="optYearTo" id="optYearTo" [(ngModel)]="toYear" class="form-select form-select-sm"
-                        style="width: 80px; float: left;">
-                        <option [value]="m" *ngFor="let m of years" [selected]="m==currentYear">{{m}}</option>
-                    </select>
-                    <input type="button" class="form-button form-button-sm" style="width: 80px; float: left;"
-                        value="Xem" (click)="filter()" />
+                    <p style="margin-bottom: 0px;" *ngIf="groupTargetType != 5.0">{{(from * 1000)| date:'dd/MM/yyyy'}} -
+                        {{(to * 1000)|
+                        date:'dd/MM/yyyy'}}</p>
+                    <div style="text-align: center; padding-top: 10px;" *ngIf="groupTargetType==2">
+                        <label for="optMonthTo" style="float: left;"> Tháng </label>
+                        <select name="optMonthFrom" id="optMonthFrom" [(ngModel)]="fromMonth"
+                            style="width: 45px; float: left; margin-right: 0px;">
+                            <option [value]="m" *ngFor="let m of months" [selected]="m==currentMonth">{{m}}</option>
+                        </select>
+                        <select name="optYearFrom" id="optYearFrom" [(ngModel)]="fromYear"
+                            style="width: 60px; float: left;">
+                            <option [value]="m" *ngFor="let m of years" [selected]="m==currentYear">{{m}}</option>
+                        </select>
+                        <label style="width: 40px; float: left; text-decoration: underline;cursor: pointer;" value="Xem"
+                            (click)="filter()">Xem</label>
+                    </div>
+                    <div style="text-align: center; padding-top: 10px;" *ngIf="groupTargetType==1">
+                        <label for="optMonthTo" style="float: left;"> Năm </label>
+                        <select name="optYearFrom" id="optYearFrom" [(ngModel)]="fromYear"
+                            style="width: 60px; float: left;" (change)="changeWeek()">
+                            <option [value]="m" *ngFor="let m of years" [selected]="m==currentYear">{{m}}</option>
+                        </select>
+                        <select name="optWeeks" id="optWeeks" [(ngModel)]="endOfWeek"
+                            style="width: 135px; float: left;">
+                            <option [value]="m.endDate" *ngFor="let m of weekDatas" [selected]="m.isCurrent===true">
+                                {{m.label}}
+                            </option>
+                        </select>
+                        <label style="width: 40px; float: left; text-decoration: underline;cursor: pointer;" value="Xem"
+                            (click)="filter()">Xem</label>
+                    </div>
                 </div>
                 <div class="card-body">
                     <table class="table">

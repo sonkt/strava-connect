@@ -15,12 +15,30 @@ export class GroupService {
 
   constructor(private http: HttpClient, private baseSv: BaseService) { }
 
-  getActivities(groupId: string, start?: string, end?: string) {
+  getActivities(groupId: string, month?: number, year?: number) {
 
     let url = `${environment.api.baseUrl}:${environment.api.basePort}/${environment.api.group.detail}/${groupId}`;
-    if (start != null && end != null) {
-      url = `${environment.api.baseUrl}:${environment.api.basePort}/${environment.api.group.detail}/${start}/${end}/${groupId}`;
+    if (month != null && year != null) {
+      url = `${environment.api.baseUrl}:${environment.api.basePort}/${environment.api.group.detail}/${month}/${year}/${groupId}`;
     }
+    const user = this.baseSv.currentUser;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${user?.accessToken}`,
+    });
+    if (user) {
+      return this.http
+        .get(url, { headers });
+    }
+    else {
+      throw new Error('Vui lòng đăng nhập');
+    }
+  }
+
+  getActivitiesByWeek(groupId: string, startDate?: string) {
+
+    let url = `${environment.api.baseUrl}:${environment.api.basePort}/${environment.api.group.detail}/week/${startDate}/${groupId}`;
+
     const user = this.baseSv.currentUser;
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
